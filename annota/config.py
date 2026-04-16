@@ -1,4 +1,4 @@
-"""Zotero MCP Server 配置常量"""
+"""Annota 配置常量"""
 
 import os
 from pathlib import Path

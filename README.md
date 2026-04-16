@@ -1,14 +1,13 @@
 <div align="center">
 
-# Zotero MCP — AI-Powered Paper Reading Assistant
+# Annota — AI-Powered Paper Annotation Assistant
 
-**Turn your Zotero library into an intelligent research assistant.**
+**Turn your PDF library into an intelligent research assistant.**
 
-AI reads your papers, highlights key findings, explains formulas, and writes structured notes — all inside Zotero.
+AI reads your papers, highlights key findings, explains formulas, and writes structured notes — all saved back to your reference manager.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10+-green.svg)](https://python.org)
-[![Zotero 7](https://img.shields.io/badge/Zotero-7-red.svg)](https://www.zotero.org)
 [![MCP](https://img.shields.io/badge/MCP-Compatible-purple.svg)](https://modelcontextprotocol.io)
 
 [Features](#-features) · [Quick Start](#-quick-start-3-minutes) · [Usage Examples](#-usage-examples) · [Screenshots](#-screenshots) · [Roadmap](#-roadmap)
@@ -23,7 +22,7 @@ AI reads your papers, highlights key findings, explains formulas, and writes str
 |------------|------------|
 | "高亮摘要中的发现结果" (Highlight findings in the abstract) | Reads the abstract, identifies findings, highlights them in green |
 | "解释第3页的公式" (Explain the formulas on page 3) | Extracts the formula, adds an explanation as a note annotation |
-| "写一份结构化阅读笔记" (Write a structured reading note) | Generates a note with contributions, methods, results, limitations — saved to Zotero |
+| "写一份结构化阅读笔记" (Write a structured reading note) | Generates a note with contributions, methods, results, limitations — saved to your library |
 | "以 MICRO 审稿人视角审阅" (Review as a MICRO reviewer) | Produces a structured review with scores and actionable feedback |
 
 <div align="center">
@@ -42,32 +41,32 @@ AI reads your papers, highlights key findings, explains formulas, and writes str
 
 ### 9 MCP Tools
 
-| Tool | What it does | Zotero open? |
-|------|-------------|:---:|
-| `search_zotero_items` | Search by title / author / key | ✅ |
-| `list_zotero_items` | Browse recent items | ✅ |
-| `get_item_metadata` | Get authors, year, venue, DOI | ✅ |
-| `get_pdf_text_bulk` | Extract full text (no coords, fast) | ✅ |
-| `get_pdf_layout_text` | Extract text + precise coordinates | ✅ |
-| `list_annotations` | View existing annotations | ✅ |
-| `create_pdf_annotation` | Create highlight / underline | Close Zotero |
-| `batch_annotate` | Create multiple annotations at once | Close Zotero |
-| `add_child_note` | Add a note to any item | Close Zotero |
+| Tool | What it does |
+|------|-------------|
+| `search_zotero_items` | Search by title / author / key |
+| `list_zotero_items` | Browse recent items |
+| `get_item_metadata` | Get authors, year, venue, DOI |
+| `get_pdf_text_bulk` | Extract full text (no coords, fast) |
+| `get_pdf_layout_text` | Extract text + precise coordinates |
+| `list_annotations` | View existing annotations |
+| `create_pdf_annotation` | Create highlight / underline |
+| `batch_annotate` | Create multiple annotations at once |
+| `add_child_note` | Add a note to any item |
 
 ### 3 Claude Code Skills (Slash Commands)
 
 | Command | Function |
 |---------|----------|
-| `/zotero-annotate` | Smart annotation with semantic color coding |
-| `/zotero-summarize` | Structured reading notes saved to Zotero |
-| `/zotero-review` | Simulated peer review with scoring rubric |
+| `/annota-annotate` | Smart annotation with semantic color coding |
+| `/annota-summarize` | Structured reading notes saved to your library |
+| `/annota-review` | Simulated peer review with scoring rubric |
 
 ### Smart Design
 
 - **Two-phase workflow** — Reads full text first (cheap), then only gets coordinates for target sentences (precise). Reduces context usage by 63–80%.
 - **Auto-skip references** — Detects "References" section and skips it. A 21-page paper extracts only 13 pages.
 - **Batch annotations** — Creates 10 highlights in 1 API call instead of 10.
-- **Friendly errors** — Write failures return `"please close Zotero"` instead of crashing.
+- **Friendly errors** — Write failures return helpful messages instead of crashing.
 
 ---
 
@@ -76,8 +75,8 @@ AI reads your papers, highlights key findings, explains formulas, and writes str
 ### Step 1: Clone & Install
 
 ```bash
-git clone https://github.com/dengls24/zotero-mcp.git
-cd zotero-mcp
+git clone https://github.com/dengls24/annota.git
+cd annota
 
 python -m venv .venv
 # Windows:
@@ -95,9 +94,9 @@ Add to `~/.claude.json` (or via Claude Code Settings > MCP Servers):
 ```json
 {
   "mcpServers": {
-    "zotero-mcp": {
-      "command": "YOUR_PATH/zotero-mcp/.venv/Scripts/python.exe",
-      "args": ["YOUR_PATH/zotero-mcp/zotero_mcp/server.py"],
+    "annota": {
+      "command": "YOUR_PATH/annota/.venv/Scripts/python.exe",
+      "args": ["YOUR_PATH/annota/annota/server.py"],
       "env": {
         "ZOTERO_DATA_DIR": "YOUR_ZOTERO_DATA_DIR"
       }
@@ -113,16 +112,16 @@ Add to `~/.claude.json` (or via Claude Code Settings > MCP Servers):
 Just talk to Claude naturally:
 
 ```
-# Chinese: 用Zotero把这篇论文摘要中的发现结果用绿色标出来
-# English: Highlight the findings in this paper's abstract in green using Zotero
+# Chinese: 把这篇论文摘要中的发现结果用绿色标出来
+# English: Highlight the findings in this paper's abstract in green
 "E:\papers\my-paper.pdf"
 ```
 
 Or use slash commands:
 ```
-/zotero-annotate "path/to/paper.pdf" highlight experimental results
-/zotero-summarize "path/to/paper.pdf"
-/zotero-review "path/to/paper.pdf" ISCA
+/annota-annotate "path/to/paper.pdf" highlight experimental results
+/annota-summarize "path/to/paper.pdf"
+/annota-review "path/to/paper.pdf" ISCA
 ```
 
 ### (Optional) Install Skills Globally
@@ -140,8 +139,8 @@ cp -r .claude/skills/ ~/.claude/skills/
 
 **Input:**
 ```
-用Zotero把这篇论文摘要中的发现结果用绿色标出来
-(Highlight the findings in this paper's abstract in green using Zotero)
+把这篇论文摘要中的发现结果用绿色标出来
+(Highlight the findings in this paper's abstract in green)
 "E:\Zotero\storage\ABCD1234\Song et al. - 2025 - AI washing.pdf"
 ```
 
@@ -205,7 +204,7 @@ cp -r .claude/skills/ ~/.claude/skills/
 
 **Input:**
 ```
-/zotero-summarize "path/to/paper.pdf"
+/annota-summarize "path/to/paper.pdf"
 ```
 
 **Result:**
@@ -284,18 +283,18 @@ Phase 2 — Annotate (precise)
 ## 📁 Project Structure
 
 ```
-zotero-mcp/
-├── zotero_mcp/                    # MCP Server (Python)
+annota/
+├── annota/                        # MCP Server (Python)
 │   ├── server.py                  # 9 tool registrations
 │   ├── zotero_db.py               # SQLite read/write layer
 │   ├── pdf_tools.py               # PyMuPDF text extraction
 │   └── config.py                  # Constants & configuration
 ├── .claude/skills/                # Claude Code Skills
-│   ├── zotero-annotate/SKILL.md   # /zotero-annotate
-│   ├── zotero-summarize/SKILL.md  # /zotero-summarize
-│   └── zotero-review/SKILL.md     # /zotero-review
+│   ├── annota-annotate/SKILL.md   # /annota-annotate
+│   ├── annota-summarize/SKILL.md  # /annota-summarize
+│   └── annota-review/SKILL.md     # /annota-review
 ├── docs/                          # Design documents
-│   ├── zotero-mcp-guide.md        # Usage guide (CN)
+│   ├── annota-guide.md            # Usage guide (CN)
 │   ├── large-pdf-design.md        # Large PDF handling design
 │   ├── dev-notes.md               # Pitfalls & solutions
 │   └── commercial-plan.md         # Commercialization plan
@@ -305,11 +304,14 @@ zotero-mcp/
 
 ---
 
-## ⚠️ Known Limitations
+## ⚠️ Known Limitations & Disclaimer
+
+> **Database Direct Access**: Annota writes annotations directly to the Zotero SQLite database, which [bypasses Zotero's internal consistency mechanisms](https://www.zotero.org/support/dev/client_coding/direct_sqlite_database_access). This is a design choice to enable **fully offline, local-first** annotation workflows without depending on external services. Users are responsible for their own database — **please back up your `zotero.sqlite` before use**. We plan to migrate to the official Zotero Web API / Local API in future versions.
 
 | Limitation | Workaround | Planned Fix |
 |-----------|------------|-------------|
-| Write ops need Zotero closed | Close Zotero before annotating | Zotero plugin bridge (HTTP API) |
+| Direct SQLite write (not officially supported) | Back up your database before use | Migrate to Zotero Local API / Web API |
+| Write ops need Zotero closed | Close Zotero before annotating | Local API bridge |
 | References detection is heuristic | Pass `skip_refs=False` if needed | Improve heuristics |
 | Tested on Windows only | Should work on Linux/Mac | Cross-platform testing |
 
@@ -317,11 +319,11 @@ zotero-mcp/
 
 ## 🗺 Roadmap
 
-- [ ] **Zotero 7 plugin bridge** — Write annotations without closing Zotero
-- [ ] **Zotero Web API** — Support cloud-synced libraries
+- [ ] **Zotero Local API / Web API** — Migrate from direct SQLite to official API for safer writes
 - [ ] **More skills** — `/compare-papers`, `/extract-tables`, `/literature-map`
 - [ ] **Prompt template marketplace** — Share and reuse annotation rules
 - [ ] **Team features** — Shared annotation standards for lab groups
+- [ ] **Multi-backend** — Support Adobe Acrobat, Endnote, and other PDF tools
 
 ---
 
@@ -337,7 +339,7 @@ Issues and PRs are welcome! If you have ideas for new skills or tools, please op
 
 <div align="center">
 
-**Built with [MCP](https://modelcontextprotocol.io) + [Claude Code](https://claude.ai/code) + [Zotero](https://www.zotero.org)**
+**Built with [MCP](https://modelcontextprotocol.io) + [Claude Code](https://claude.ai/code)**
 
 If this project helps your research, consider giving it a ⭐
 

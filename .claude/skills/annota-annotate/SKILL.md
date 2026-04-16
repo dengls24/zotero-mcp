@@ -1,7 +1,7 @@
 ---
-name: zotero-annotate
+name: annota-annotate
 description: >
-  Zotero 论文智能标注。使用两阶段工作流：先提取全文理解内容，再对目标句子精确标注。
+  论文智能标注。使用两阶段工作流：先提取全文理解内容，再对目标句子精确标注。
   支持按语义分类标注（结果=绿色、方法=蓝色、不足=红色、贡献=紫色）。
   触发词：annotate、highlight、标注、高亮、mark this paper、标出论文中的
 when_to_use: >
@@ -12,7 +12,7 @@ user-invocable: true
 disable-model-invocation: false
 ---
 
-# Zotero 论文智能标注
+# 论文智能标注
 
 你将对一篇学术论文 PDF 执行智能标注。严格遵循两阶段工作流。
 

@@ -1,13 +1,13 @@
-"""Zotero MCP Server — 主入口。
+"""Annota MCP Server — 主入口。
 
 通过 FastMCP 注册以下工具：
-  - get_pdf_layout_text:   提取 PDF 页面文本及 Zotero 空间坐标
+  - get_pdf_layout_text:   提取 PDF 页面文本及坐标
   - get_pdf_text_bulk:     批量提取多页纯文本（无坐标，适合大 PDF）
-  - create_pdf_annotation: 在 Zotero 中创建 PDF 高亮批注
+  - create_pdf_annotation: 创建 PDF 高亮批注
   - batch_annotate:        一次性创建多条标注（减少调用次数）
-  - add_child_note:        为 Zotero 条目创建子笔记
-  - list_zotero_items:     列出 Zotero 库中的文献条目
-  - search_zotero_items:   按标题/作者/key 搜索 Zotero 条目
+  - add_child_note:        为条目创建子笔记
+  - list_zotero_items:     列出文献条目
+  - search_zotero_items:   按标题/作者/key 搜索条目
   - get_item_metadata:     获取条目元数据（作者、年份、期刊等）
   - list_annotations:      列出 PDF 上已有的标注
 
@@ -31,22 +31,22 @@ import sqlite3
 
 from mcp.server.fastmcp import FastMCP
 
-from zotero_mcp import pdf_tools, zotero_db
-from zotero_mcp.config import ZOTERO_DB_PATH, ZOTERO_STORAGE_DIR
+from annota import pdf_tools, zotero_db
+from annota.config import ZOTERO_DB_PATH, ZOTERO_STORAGE_DIR
 
 # ── 日志配置（输出到 stderr，不干扰 stdio JSON-RPC）──────────────
 logging.basicConfig(
     level=logging.INFO,
-    format="[zotero-mcp] %(levelname)s %(message)s",
+    format="[annota] %(levelname)s %(message)s",
     stream=sys.stderr,
 )
 logger = logging.getLogger(__name__)
 
 # ── MCP Server ──────────────────────────────────────────────────
 mcp = FastMCP(
-    name="zotero-mcp",
+    name="annota",
     instructions=(
-        "Zotero MCP Server: 读取本地 Zotero 库中的 PDF 文件，提取带坐标的文本，"
+        "Annota: 读取本地 Zotero 库中的 PDF 文件，提取带坐标的文本，"
         "并精准回写高亮批注和笔记。所有坐标均为 PDF user space（原点左下角）。\n\n"
         "【大 PDF 两阶段工作流】处理超过 10 页的论文时，请遵循：\n"
         "  Phase 1 — 理解：先用 get_pdf_text_bulk 批量提取纯文本（无坐标），让 LLM 理解全文内容，"
@@ -383,7 +383,7 @@ def _resolve_item_id(item_id: str) -> int:
 # ── 入口 ────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    logger.info("Zotero MCP Server 启动中...")
+    logger.info("Annota MCP Server 启动中...")
     logger.info("Zotero 数据库: %s", ZOTERO_DB_PATH)
     logger.info("Zotero 存储目录: %s", ZOTERO_STORAGE_DIR)
     mcp.run(transport="stdio")

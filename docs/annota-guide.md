@@ -1,8 +1,8 @@
-# Zotero MCP 使用指南
+# Annota 使用指南
 
 ## 工具概览
 
-zotero-mcp 是一个本地 MCP Server，让 Claude Code 能直接操作 Zotero 库中的 PDF：提取文本、创建高亮标注、添加笔记。
+annota 是一个本地 MCP Server，让 Claude Code 能直接操作 Zotero 库中的 PDF：提取文本、创建高亮标注、添加笔记。
 
 ### 可用工具
 
@@ -78,9 +78,9 @@ E:\asic-soc\0-文献&翻译\Zotero文献\storage\4SQST7E8\论文名.pdf
 在 `~/.claude.json` 的 `mcpServers` 中：
 
 ```json
-"zotero-mcp": {
+"annota": {
   "command": "E:/.../papernote/.venv/Scripts/python.exe",
-  "args": ["E:/.../papernote/zotero_mcp/server.py"],
+  "args": ["E:/.../papernote/annota/server.py"],
   "env": {
     "ZOTERO_DATA_DIR": "E:\\asic-soc\\0-文献&翻译\\Zotero文献"
   }

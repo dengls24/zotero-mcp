@@ -1,7 +1,7 @@
 ---
-name: zotero-summarize
+name: annota-summarize
 description: >
-  为 Zotero 论文生成结构化阅读笔记，自动保存为 Zotero 子笔记。
+  为论文生成结构化阅读笔记，自动保存为子笔记。
   提取核心贡献、方法、实验结果、不足和启发，生成中英文双语笔记。
   触发词：summarize paper、论文笔记、读书笔记、paper note、总结这篇论文
 when_to_use: >
@@ -11,7 +11,7 @@ user-invocable: true
 disable-model-invocation: false
 ---
 
-# Zotero 论文结构化笔记
+# 论文结构化笔记
 
 为一篇学术论文生成结构化阅读笔记，并保存到 Zotero。
 

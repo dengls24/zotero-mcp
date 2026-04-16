@@ -67,7 +67,7 @@ def _connect_readonly_copy() -> sqlite3.Connection:
     import shutil
     import tempfile
 
-    tmp_dir = Path(tempfile.gettempdir()) / "zotero_mcp"
+    tmp_dir = Path(tempfile.gettempdir()) / "annota"
     tmp_dir.mkdir(exist_ok=True)
     tmp_db = tmp_dir / "zotero_readonly.sqlite"
 

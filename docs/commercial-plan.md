@@ -1,8 +1,8 @@
-# Zotero AI Assistant — 商业化方案
+# Annota — 商业化方案
 
 ## 产品定位
 
-**Zotero AI Assistant** — 基于 LLM 的学术 PDF 智能标注与笔记助手
+**Annota** — 基于 LLM 的学术 PDF 智能标注与笔记助手
 
 核心能力：
 1. **智能标注**：AI 理解论文内容，自动/按指令标注关键发现、方法、不足等
@@ -20,7 +20,7 @@
 Claude Code / Cursor
         │ MCP Protocol (stdio)
         ▼
-zotero-mcp Server (Python)
+annota Server (Python)
 ├── pdf_tools    — PyMuPDF 提取文本+坐标
 ├── zotero_db    — SQLite 读写（复制快照读 + 重试写）
 └── server.py    — 5 个 MCP tool

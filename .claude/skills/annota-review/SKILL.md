@@ -1,5 +1,5 @@
 ---
-name: zotero-review
+name: annota-review
 description: >
   以学术审稿人视角审阅论文，输出结构化评审意见。
   可指定会议级别（MICRO/ISCA/HPCA/ASPLOS/DAC/ISSCC 等），
@@ -13,7 +13,7 @@ disable-model-invocation: false
 effort: high
 ---
 
-# Zotero 论文审阅
+# 论文审阅
 
 以顶会审稿人视角审阅一篇学术论文，输出结构化评审报告。
 
@@ -112,7 +112,7 @@ Recommendation: [Strong Accept / Accept / Weak Accept / Borderline / Weak Reject
 - 写作问题标黄色 `#ffd400`
 - 亮点标绿色 `#28CA42`
 
-如果是，执行 `/zotero-annotate` 的两阶段流程。
+如果是，执行 `/annota-annotate` 的两阶段流程。
 
 ## 审阅原则
 
