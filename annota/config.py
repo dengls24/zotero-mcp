@@ -1,12 +1,22 @@
 """Annota 配置常量"""
 
 import os
+import platform
 from pathlib import Path
 
-# ── Zotero 数据路径 ──────────────────────────────────────────────
+# ── Zotero 数据路径（自动适配 Windows / macOS / Linux）──────────────
+def _default_zotero_dir() -> str:
+    system = platform.system()
+    if system == "Darwin":  # macOS
+        return str(Path.home() / "Zotero")
+    elif system == "Linux":
+        return str(Path.home() / "Zotero")
+    else:  # Windows
+        return r"C:\Users\username\Zotero"
+
 ZOTERO_DATA_DIR = Path(os.environ.get(
     "ZOTERO_DATA_DIR",
-    r"E:\asic-soc\0-文献&翻译\Zotero文献"
+    _default_zotero_dir()
 ))
 ZOTERO_DB_PATH = ZOTERO_DATA_DIR / "zotero.sqlite"
 ZOTERO_STORAGE_DIR = ZOTERO_DATA_DIR / "storage"

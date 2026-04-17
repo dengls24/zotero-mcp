@@ -9,6 +9,7 @@ AI reads your papers, highlights key findings, explains formulas, and writes str
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10+-green.svg)](https://python.org)
 [![MCP](https://img.shields.io/badge/MCP-Compatible-purple.svg)](https://modelcontextprotocol.io)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)]()
 
 [Features](#-features) · [Quick Start](#-quick-start-3-minutes) · [Usage Examples](#-usage-examples) · [Screenshots](#-screenshots) · [Roadmap](#-roadmap)
 
@@ -79,9 +80,10 @@ git clone https://github.com/dengls24/annota.git
 cd annota
 
 python -m venv .venv
+
 # Windows:
 .venv\Scripts\activate
-# Linux/Mac:
+# macOS / Linux:
 # source .venv/bin/activate
 
 pip install pymupdf mcp
@@ -91,38 +93,63 @@ pip install pymupdf mcp
 
 Add to `~/.claude.json` (or via Claude Code Settings > MCP Servers):
 
+**Windows:**
 ```json
 {
   "mcpServers": {
     "annota": {
-      "command": "YOUR_PATH/annota/.venv/Scripts/python.exe",
-      "args": ["YOUR_PATH/annota/annota/server.py"],
+      "command": "C:/path/to/annota/.venv/Scripts/python.exe",
+      "args": ["C:/path/to/annota/annota/server.py"],
       "env": {
-        "ZOTERO_DATA_DIR": "YOUR_ZOTERO_DATA_DIR"
+        "ZOTERO_DATA_DIR": "C:/Users/YourName/Zotero"
       }
     }
   }
 }
 ```
 
-> **Finding your Zotero data directory:** Zotero → Edit → Settings → Advanced → Files and Folders → Data Directory Location
+**macOS / Linux:**
+```json
+{
+  "mcpServers": {
+    "annota": {
+      "command": "/path/to/annota/.venv/bin/python",
+      "args": ["/path/to/annota/annota/server.py"],
+      "env": {
+        "ZOTERO_DATA_DIR": "/Users/YourName/Zotero"
+      }
+    }
+  }
+}
+```
+
+> **Finding your Zotero data directory:**
+> - **Windows**: Zotero → Edit → Settings → Advanced → Data Directory Location (default: `C:\Users\YourName\Zotero`)
+> - **macOS**: Zotero → Settings → Advanced → Data Directory Location (default: `~/Zotero`)
+> - **Linux**: default `~/Zotero`
 
 ### Step 3: Use It
 
 Just talk to Claude naturally:
 
 ```
-# Chinese: 把这篇论文摘要中的发现结果用绿色标出来
-# English: Highlight the findings in this paper's abstract in green
-"E:\papers\my-paper.pdf"
+# One command to read a full paper:
+/annota-read "path/to/paper.pdf"
+
+# Or natural language:
+# Highlight the findings in this paper's abstract in green
+"/Users/yourname/Zotero/storage/ABCD1234/paper.pdf"
 ```
 
 Or use slash commands:
 ```
-/annota-annotate "path/to/paper.pdf" highlight experimental results
+/annota-read "path/to/paper.pdf"
+/annota-annotate "path/to/paper.pdf"
 /annota-summarize "path/to/paper.pdf"
 /annota-review "path/to/paper.pdf" ISCA
 ```
+
+> **macOS path tip:** Drag a file from Finder into the terminal to get its full path, or right-click → "Copy as Pathname".
 
 ### (Optional) Install Skills Globally
 
@@ -313,7 +340,7 @@ annota/
 | Direct SQLite write (not officially supported) | Back up your database before use | Migrate to Zotero Local API / Web API |
 | Write ops need Zotero closed | Close Zotero before annotating | Local API bridge |
 | References detection is heuristic | Pass `skip_refs=False` if needed | Improve heuristics |
-| Tested on Windows only | Should work on Linux/Mac | Cross-platform testing |
+| Tested primarily on Windows | Should work on macOS/Linux — paths auto-detected | Community testing welcome |
 
 ---
 
